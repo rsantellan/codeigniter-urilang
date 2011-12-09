@@ -11,22 +11,20 @@ Sets the language defined in the URI as the system's default language during run
 Note that you should load URILang __before__ you use `$this->lang->line()` or `lang()` anywhere in your application!
 
 If you use sparks:
-```php
-$this->load->spark('urilang/1.0.0');
-```
+
+    $this->load->spark('urilang/1.0.0');
+
 
 If you don't use sparks:
-```php
-$this->load->library('urilang');
-```
+
+    $this->load->library('urilang');
+
 
 Then add the following routes to your config/routes.php:
-```php
-$route['(\w{2})/(.*)'] = '$2';
-$route['(\w{2})'] = $route['default_controller'];
-```
+
+    $route['(\w{2})/(.*)'] = '$2';
+    $route['(\w{2})'] = $route['default_controller'];
 
 Now load the language file just like you normally would and you're all set!
-```php
-$this->lang->load('your_language_file');
-```
+
+    $this->lang->load('your_language_file');
