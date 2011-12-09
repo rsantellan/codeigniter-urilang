@@ -25,6 +25,10 @@ Then add the following routes to your config/routes.php:
     $route['(\w{2})/(.*)'] = '$2';
     $route['(\w{2})'] = $route['default_controller'];
 
+Specify the supported languages in config/urilang.php:
+
+    $config['supported_languages'] = array('en' => 'english', 'fr' => 'french', 'es' => 'spanish', 'de' => 'german');
+
 Now load the language file just like you normally would and you're all set!
 
     $this->lang->load('your_language_file');
