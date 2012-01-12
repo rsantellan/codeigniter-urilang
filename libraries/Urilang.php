@@ -128,7 +128,25 @@ class URILang {
 		$default_lang = array($this->_lang => $this->_supported_langs[$this->_lang]);
 		return $default_lang + $this->_supported_langs;
 	}
-
+	
+	/**
+	 * Returns the selected language.
+	 * 
+	 * @param	bool	Return an array with 'en' => 'english' or just the key 'en'
+	 */
+	public function selected_language($fullResponse = FALSE)
+	{
+		$selected_language = array($this->_lang => $this->_supported_langs[$this->_lang]);
+		if ($fullResponse)
+		{
+			return $selected_language;
+		}
+		else
+		{
+			return key($selected_language);
+		}
+	}
+	
 }
 
 /* End of file */
