@@ -12,7 +12,7 @@ Note that you should load URILang __before__ you use `$this->lang->line()` or `l
 
 If you use sparks:
 
-    $this->load->spark('urilang/1.0.0');
+    $this->load->spark('urilang/1.0.1');
 
 
 If you don't use sparks:
