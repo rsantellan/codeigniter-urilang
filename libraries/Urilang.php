@@ -45,24 +45,42 @@ class URILang {
 		// get lang abbreviations from uri and config file
 		$this->_supported_langs = $this->_ci->config->item('supported_languages');
 		$this->_uri_lang = $this->_ci->uri->segment(1);
-		
+		$use_session = $this->_ci->config->item('use_session');
 		// check if the language defined in the URI is supported / if it is defined
 		if ($this->_lang_is_supported($this->_uri_lang))
 		{
-			// remove old cookie
-			$this->_ci->input->set_cookie('pref_lang', null, -1);
-			unset($_COOKIE['pref_lang']);
-			
-			// set the new one
-			$this->_ci->input->set_cookie('pref_lang', $this->_uri_lang, $this->_ci->config->item('sess_expiration'));
-			
+            if(!$use_session)
+            {
+              // remove old cookie
+              $this->_ci->input->set_cookie('pref_lang', null, -1);
+              unset($_COOKIE['pref_lang']);
+
+              // set the new one
+              $this->_ci->input->set_cookie('pref_lang', $this->_uri_lang, $this->_ci->config->item('sess_expiration'));
+            }
+            else
+            {
+              //Set new lang
+              $this->_ci->session->unset_userdata('pref_lang');
+              $this->_ci->session->set_userdata('pref_lang', $this->_uri_lang);
+            }
 			// set lang to load
 			$this->_lang = $this->_uri_lang;
 		}
 		else
 		{
-			// defined language is not supported or not specified, check for cookie
-			$pref_lang = $this->_ci->input->cookie('pref_lang', true);
+            $pref_lang = false;
+            if(!$use_session)
+            {
+              // defined language is not supported or not specified, check for cookie
+              $pref_lang = $this->_ci->input->cookie('pref_lang', true);
+            }
+            else
+            {
+              // defined language is not supported or not specified, check for session
+              $pref_lang = $this->_ci->session->userdata('pref_lang');
+            }
+			
 			
 			if ($pref_lang)
 			{
